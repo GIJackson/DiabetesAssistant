@@ -5,7 +5,10 @@ namespace DiabetesAssistant;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
+
+    /*SOLID principle D: Dependency inversion, singleton use of classes*/
+
+    public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder

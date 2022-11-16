@@ -7,6 +7,8 @@ using System.Diagnostics;
 
 namespace DiabetesAssistant.ViewModel
 {
+    /*SOLID principle L: Liskov substitution, MainViewModel inherits the observable property boolean IsBusy*/
+
     public partial class MainViewModel : BaseViewModel
     {
         NutritionFactsService nutritionFactsService;

@@ -3,6 +3,9 @@ using DiabetesAssistant.Models;
 
 namespace DiabetesAssistant
 {
+
+    /*SOLID Principle S: Single-responsibility, FoodRepository and FoodTable are separated to ensure that should there be any changes to the class
+     the methods within and properties within do not change. FoodTable holds the properties and FoodRepository holds the methods*/
     public class FoodRepository
     {
         string _dbPath;

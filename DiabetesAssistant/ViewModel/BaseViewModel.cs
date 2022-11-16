@@ -3,6 +3,8 @@ using System.ComponentModel;
 
 namespace DiabetesAssistant.ViewModel;
 
+/*Generic class for current and future ViewModels*/
+
 public partial class BaseViewModel : ObservableObject
 {
     public BaseViewModel()
