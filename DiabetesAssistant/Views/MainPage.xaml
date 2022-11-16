@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:DiabetesAssistant.Models"
              x:DataType="viewmodel:MainViewModel">
 
-    <Grid RowDefinitions="100, Auto, *"
+    <Grid RowDefinitions="100, 45, 250, 45, 45, 45, 45, 45"
           ColumnDefinitions=".75*, .25*"
           Padding="10"
           RowSpacing="10"
@@ -20,14 +20,15 @@
                     
                         <VerticalStackLayout Padding="10,10"
                                              Margin="0">
+                            
                             <Border Stroke="Blue"
-                                    StrokeThickness="4"
-                                    StrokeShape="RoundRectangle 5,5,5,5"
-                                    Background="Green"
-                                    Padding="16,10"
-                                    Margin="10">
-                                <Label Text="{Binding labelNutrients.calories.value, StringFormat='Calories: {0}'}"
-                                   FontSize="24"/>
+                                        StrokeThickness="4"
+                                        StrokeShape="RoundRectangle 5,5,5,5"
+                                        Background="Green"
+                                        Padding="16,10"
+                                        Margin="10">
+                                <Label  Text="{Binding description, StringFormat='Food: {0}'}"
+                                        FontSize="24"/>
                             </Border>
                             <Border Stroke="Blue"
                                     StrokeThickness="4"
@@ -35,25 +36,70 @@
                                     Background="Green"
                                     Padding="16,10"
                                     Margin="10">
-                                <Label Text="{Binding labelNutrients.carbohydrates.value, StringFormat='Carbs: {0}'}"
-                                   FontSize="24"/>
+                                <Label  Text="{Binding labelNutrients.calories.value, StringFormat='Calories: {0}'}"
+                                        FontSize="24"/>
                             </Border>
-                        </VerticalStackLayout>
+                            <Border Stroke="Blue"
+                                    StrokeThickness="4"
+                                    StrokeShape="RoundRectangle 5,5,5,5"
+                                    Background="Green"
+                                    Padding="16,10"
+                                    Margin="10">
+                                <Label  Text="{Binding labelNutrients.carbohydrates.value, StringFormat='Carbs: {0}'}"
+                                        FontSize="24"/>
+                            </Border>
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Image Grid.ColumnSpan="2"
-               Source="dotnet_bot.png"
-               BackgroundColor="Purple"/>
-        <Entry Placeholder="Search Nutrition Facts"
-               x:Name="SearchNutritionFacts"
-               PlaceholderColor="Black"
-               Grid.Row="1"/>
+        
+        <Image  Grid.ColumnSpan="2"
+                Source="dotnet_bot.png"
+                BackgroundColor="Purple"/>
+
+        <Entry  x:Name="Fdcid"
+                Placeholder="Press Search For APPLE Calories and Carbs!"
+                PlaceholderColor="Black"
+                Grid.Row="1"/>
 
         <Button Text="Search"
+                x:Name="SearchButton"
+                Clicked="SearchButton_Clicked"
                 Command="{Binding GetLabelNutrientsCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="1"/>
+        
+        <Entry x:Name="newFood"
+           Placeholder="Enter food" 
+               Grid.Row="3"/>
+
+        <Button Text="Add Food"
+            Grid.Row="4"
+            Clicked="OnNewButtonClicked" />
+
+        <Label x:Name="statusMessage"
+           Grid.Row="5" />
+
+        <Button Text="Get All Food"
+            Grid.Row="6"
+            Clicked="OnGetButtonClicked" />
+
+        <CollectionView x:Name="foodList" Grid.Row="8">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:FoodTable">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="{Binding Id}" />
+                        <Label Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
+    
 </ContentPage>

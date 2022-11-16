@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json;
+using SQLite;
 
 namespace DiabetesAssistant.Models;
 
-// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 public class Calories
 {
     public int value { get; set; }
@@ -91,6 +91,7 @@ public class Protein
 {
     public double value { get; set; }
 }
+
 
 public class Food
 {

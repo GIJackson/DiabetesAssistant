@@ -10,12 +10,17 @@ namespace DiabetesAssistant.ViewModel
     public partial class MainViewModel : BaseViewModel
     {
         NutritionFactsService nutritionFactsService;
+
         public ObservableCollection<Food> Food { get; } = new();
+
+        public ObservableCollection<FoodTable> FoodTable { get; } = new();
+
         public MainViewModel(NutritionFactsService nutritionFactsService)
         {
             this.nutritionFactsService = nutritionFactsService;
         }
 
+        
         [RelayCommand]
         async Task GetLabelNutrientsAsync()
         {

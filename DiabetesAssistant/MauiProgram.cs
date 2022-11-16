@@ -16,7 +16,11 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton<NutritionFactsService>();
+
+        string dbPath = FileAccessHelper.GetLocalFilePath("food.db3");
+        builder.Services.AddSingleton<FoodRepository>(s => ActivatorUtilities.CreateInstance<FoodRepository>(s, dbPath));
+
+        builder.Services.AddSingleton<NutritionFactsService>();
 
         builder.Services.AddSingleton<MainViewModel>();
 
