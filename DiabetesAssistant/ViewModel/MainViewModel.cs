@@ -1,22 +1,48 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using DiabetesAssistant.Services;
+using DiabetesAssistant.Models;
+using CommunityToolkit.Mvvm.Input;
+using System.Diagnostics;
 
 namespace DiabetesAssistant.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public partial class MainViewModel : BaseViewModel
     {
-        string text;
-        public string Text
+        NutritionFactsService nutritionFactsService;
+        public ObservableCollection<Food> Food { get; } = new();
+        public MainViewModel(NutritionFactsService nutritionFactsService)
         {
-            get => text;
-            set
-            {
-                text = value;
-                OnPropertyChanged(nameof(Text));
-            }
+            this.nutritionFactsService = nutritionFactsService;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged(string name) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        [RelayCommand]
+        async Task GetLabelNutrientsAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                if (Food.Count != 0)
+                {
+                    Food.Clear();
+                }
+                Food labelNutrients = await nutritionFactsService.GetNutritionFacts();
+                Food.Add(labelNutrients);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error!", $"Unable to get nutrition facts: {ex.Message}", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+
+            }
+            
+        }
     }
 }

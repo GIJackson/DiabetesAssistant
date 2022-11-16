@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DiabetesAssistant.MainPage"
              xmlns:viewmodel="clr-namespace:DiabetesAssistant.ViewModel"
+             xmlns:model="clr-namespace:DiabetesAssistant.Models"
              x:DataType="viewmodel:MainViewModel">
 
     <Grid RowDefinitions="100, Auto, *"
@@ -10,6 +11,37 @@
           Padding="10"
           RowSpacing="10"
           ColumnSpacing="10">
+        
+        <CollectionView Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Food}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Food">
+                    
+                        <VerticalStackLayout Padding="10,10"
+                                             Margin="0">
+                            <Border Stroke="Blue"
+                                    StrokeThickness="4"
+                                    StrokeShape="RoundRectangle 5,5,5,5"
+                                    Background="Green"
+                                    Padding="16,10"
+                                    Margin="10">
+                                <Label Text="{Binding labelNutrients.calories.value, StringFormat='Calories: {0}'}"
+                                   FontSize="24"/>
+                            </Border>
+                            <Border Stroke="Blue"
+                                    StrokeThickness="4"
+                                    StrokeShape="RoundRectangle 5,5,5,5"
+                                    Background="Green"
+                                    Padding="16,10"
+                                    Margin="10">
+                                <Label Text="{Binding labelNutrients.carbohydrates.value, StringFormat='Carbs: {0}'}"
+                                   FontSize="24"/>
+                            </Border>
+                        </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Image Grid.ColumnSpan="2"
                Source="dotnet_bot.png"
                BackgroundColor="Purple"/>
@@ -19,34 +51,9 @@
                Grid.Row="1"/>
 
         <Button Text="Search"
-                x:Name="SearchNutrtionFactsClick"
-                Clicked="SearchNutrtionFactsClick_Clicked"
+                Command="{Binding GetLabelNutrientsCommand}"
+                IsEnabled="{Binding IsNotBusy}"
                 Grid.Row="1"
                 Grid.Column="1"/>
-
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Placeholder</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItem Text="Delete"
-                                       BackgroundColor="Red"/>
-                        </SwipeView.RightItems>
-                        <Grid Padding="0,5">
-                            <Frame>
-                                <Label Text="{Binding .}"
-                                   FontSize="24"/>
-                            </Frame>
-                        </Grid>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
     </Grid>
 </ContentPage>

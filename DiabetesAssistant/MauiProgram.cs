@@ -1,4 +1,7 @@
-﻿namespace DiabetesAssistant;
+﻿using DiabetesAssistant.Services;
+using DiabetesAssistant.ViewModel;
+
+namespace DiabetesAssistant;
 
 public static class MauiProgram
 {
@@ -13,6 +16,12 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		return builder.Build();
+		builder.Services.AddSingleton<NutritionFactsService>();
+
+        builder.Services.AddSingleton<MainViewModel>();
+
+        builder.Services.AddSingleton<MainPage>();
+
+        return builder.Build();
 	}
 }
